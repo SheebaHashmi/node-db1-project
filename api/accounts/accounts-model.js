@@ -12,7 +12,6 @@ const getById = id => {
 const create = async account => {
   // DO YOUR MAGIC
   const [id] = await db('accounts').insert(account)
-  console.log(id)
   return getById(id)
 }
 
