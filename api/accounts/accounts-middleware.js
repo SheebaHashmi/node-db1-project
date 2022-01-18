@@ -8,8 +8,8 @@ exports.checkAccountPayload = (req, res, next) => {
     if(!req.body.name || !req.body.budget){
       next({ message: "name and budget are required" })
     }
-    else{
-      if(req.body.name.length > 3 && req.body.name < 100){
+   
+      else if(req.body.name.trim().length > 3 && req.body.name.trim.length < 100){
         next({ message: "name of account must be between 3 and 100" })
       }
       else if(typeof req.body.budget !== Number){
@@ -18,7 +18,8 @@ exports.checkAccountPayload = (req, res, next) => {
       else if(req.body.budget < 0 || req.body.budget > 1000000){
         next({ message: "budget of account is too large or too small" })
       }
-    }
+      req.account = req.body
+    
     
   }
   catch{
@@ -29,7 +30,7 @@ exports.checkAccountPayload = (req, res, next) => {
 exports.checkAccountNameUnique = async(req, res, next) => {
   // DO YOUR MAGIC
   const { name } = await Account.getAll();
-  if(name === req.body.name){
+  if(name === req.body.name.trim()){
     next({status:400, message: "that name is taken" })
   }
   next();

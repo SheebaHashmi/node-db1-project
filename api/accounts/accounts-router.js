@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const Accounts = require('./accounts-model')
+const Accounts = require('./accounts-model');
+
 
 router.get('/', async(req, res, next) => {
   // DO YOUR MAGIC
@@ -23,16 +24,38 @@ router.get('/:id', async(req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', async(req, res, next) => {
   // DO YOUR MAGIC
+ 
+  try{
+    const newAccount = await Accounts.create(req.body)
+    res.json(newAccount)
+  }
+  catch(err){
+    next(err)
+  }
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   // DO YOUR MAGIC
+  try{
+    const updateAccount = await Accounts.updateById(req.params.id,req.body)
+    res.json(updateAccount)
+  }
+  catch(err){
+    next(err)
+  }
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', async(req, res, next) => {
   // DO YOUR MAGIC
+  try{
+    const deletedAccount = await Accounts.deleteById(req.params.id)
+    res.json(deletedAccount)
+  }
+  catch(err){
+    next(err)
+  }
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line

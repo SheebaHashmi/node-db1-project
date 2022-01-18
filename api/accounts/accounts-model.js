@@ -11,18 +11,18 @@ const getById = id => {
 
 const create = account => {
   // DO YOUR MAGIC
-  return db('account').insert(account)
+  return db('accounts').insert(account)
 
 }
 
 const updateById = (id, account) => {
   // DO YOUR MAGIC
-  return db('account').where('id',id).update(account)
+  return db('accounts').where('id',id).update(account)
 }
 
 const deleteById = id => {
   // DO YOUR MAGIC
-  return db('account').where('id',id).del()
+  return db('accounts').where('id',id).del()
 }
 
 module.exports = {
